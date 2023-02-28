@@ -49,7 +49,6 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'Billings',
-    to: '/billings',
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     items: [
       {

@@ -48,6 +48,43 @@ const Badges = React.lazy(() => import('./views/notifications/badges/Badges'))
 const Modals = React.lazy(() => import('./views/notifications/modals/Modals'))
 const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
+//Billings
+const WaterBillList = React.lazy(() => import('./views/billings/WaterBillList'))
+const AssociationDueList = React.lazy(() => import('./views/billings/AssociationDueList'))
+const ManageBilling = React.lazy(() => import('./views/billings/ManageBilling'))
+const AddBilling = React.lazy(() => import('./views/billings/AddBilling'))
+
+//Unit
+const AddUnit = React.lazy(() => import('./views/unit/AddUnit'))
+const UnitList = React.lazy(() => import('./views/unit/UnitList'))
+const ViewUnitDetails = React.lazy(() => import('./views/unit/ViewUnitDetails'))
+
+//User
+const AddNewUser = React.lazy(() => import('./views/user/AddNewUser'))
+const UserList = React.lazy(() => import('./views/user/UserList'))
+
+//Security
+const AddNewSecurityGuard = React.lazy(() => import('./views/security/AddNewSecurityGuard'))
+const SecurityGuardList = React.lazy(() => import('./views/security/SecurityGuardList'))
+
+//Request
+const RequestApproval = React.lazy(() => import('./views/request/RequestApproval'))
+const RequestList = React.lazy(() => import('./views/request/RequestList'))
+
+//Guest
+const AddNewGuest = React.lazy(() => import('./views/guest/AddNewGuest'))
+const GuestApproval = React.lazy(() => import('./views/guest/GuestApproval'))
+const GuestList = React.lazy(() => import('./views/guest/GuestList'))
+
+//Admin
+const AddNewAdminUser = React.lazy(() => import('./views/admin/AddNewAdminUser'))
+const AdminList = React.lazy(() => import('./views/admin/AdminList'))
+const AdminPriv = React.lazy(() => import('./views/admin/AdminPriv'))
+
+//Services
+const AddNewService = React.lazy(() => import('./views/services/AddNewService'))
+const ServiceList = React.lazy(() => import('./views/services/ServiceList'))
+
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 const routes = [
@@ -95,6 +132,10 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
+  { path: '/billings/WaterBillList', name: 'Water Bill List', element: WaterBillList },
+  { path: '/billings/ManageBilling', name: 'Manage Billings', element: ManageBilling },
+  { path: '/billings/AssociationDueList', name: 'Association Due List', element: AssociationDueList },
+  { path: '/billings/AddBilling', name: 'Add Billing', element: AddBilling },
 ]
 
 export default routes
