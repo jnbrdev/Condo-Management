@@ -1,12 +1,15 @@
 import React from 'react'
+import '../../../all-views-scss/_registerstyle.scss'
 import {
   CButton,
   CCard,
   CCardBody,
   CCol,
   CContainer,
+  CDropdown,
   CForm,
   CFormInput,
+  CFormSelect,
   CInputGroup,
   CInputGroupText,
   CRow,
@@ -16,55 +19,81 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 
 const Register = () => {
   return (
-    <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
-      <CContainer>
-        <CRow className="justify-content-center">
-          <CCol md={9} lg={7} xl={6}>
-            <CCard className="mx-4">
-              <CCardBody className="p-4">
-                <CForm>
-                  <h1>Register</h1>
-                  <p className="text-medium-emphasis">Create your account</p>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>
-                      <CIcon icon={cilUser} />
-                    </CInputGroupText>
-                    <CFormInput placeholder="Username" autoComplete="username" />
-                  </CInputGroup>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>@</CInputGroupText>
-                    <CFormInput placeholder="Email" autoComplete="email" />
-                  </CInputGroup>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>
-                      <CIcon icon={cilLockLocked} />
-                    </CInputGroupText>
-                    <CFormInput
-                      type="password"
-                      placeholder="Password"
-                      autoComplete="new-password"
-                    />
-                  </CInputGroup>
-                  <CInputGroup className="mb-4">
-                    <CInputGroupText>
-                      <CIcon icon={cilLockLocked} />
-                    </CInputGroupText>
-                    <CFormInput
-                      type="password"
-                      placeholder="Repeat password"
-                      autoComplete="new-password"
-                    />
-                  </CInputGroup>
-                  <div className="d-grid">
-                    <CButton color="success">Create Account</CButton>
-                  </div>
-                </CForm>
-              </CCardBody>
-            </CCard>
-          </CCol>
-        </CRow>
-      </CContainer>
-    </div>
+    <CContainer className="registercontainer">
+      <CRow className="wrapper">
+        <CCol>
+          <CCard className="registerform">
+            <CCardBody>
+              <CForm>
+                <h1>Create Account</h1>
+                <CCol className="text-divider"> Personal Information</CCol>
+                <CRow className="row">
+                  <CCol className="col-md-6">
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon={cilUser} />
+                      </CInputGroupText>
+                      <CFormInput placeholder="Firstname" autoComplete="firstname" />
+                    </CInputGroup>
+                  </CCol>
+                  <CCol className="col-md-6">
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon={cilUser} />
+                      </CInputGroupText>
+                      <CFormInput placeholder="Lastname" autoComplete="lastname" />
+                    </CInputGroup>
+                  </CCol>
+                </CRow>
+                <CRow className="row">
+                  <CCol className="col-md-6">
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon={cilUser} />
+                      </CInputGroupText>
+                      <CFormSelect className="costum-select">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </CFormSelect>
+                    </CInputGroup>
+                  </CCol>
+                  <CCol className="col-md-6">
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon={cilUser} />
+                      </CInputGroupText>
+                      <CFormInput placeholder="Nationality" autoComplete="Nationality" />
+                    </CInputGroup>
+                  </CCol>
+                </CRow>
+                <CRow className="row">
+                  <CCol className="col-md-6">
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon={cilUser} />
+                      </CInputGroupText>
+                      <CFormInput placeholder="Contact Number" autoComplete="contactNum" />
+                    </CInputGroup>
+                  </CCol>
+                  <CCol className="col-md-6">
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon={cilUser} />
+                      </CInputGroupText>
+                      <CFormInput type="date" />
+                    </CInputGroup>
+                  </CCol>
+                </CRow>
+                <CCol className="create-acc">
+                  <CButton color="primary">Create Account</CButton>
+                </CCol>
+              </CForm>
+            </CCardBody>
+          </CCard>
+        </CCol>
+      </CRow>
+    </CContainer>
   )
 }
 
