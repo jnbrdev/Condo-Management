@@ -2,16 +2,21 @@ import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
   cilBell,
-  cilCalculator,
+  //cilCalculator,
   //cilChartPie,
   //cilCursor,
   cilDescription,
-  cilDrop,
-  cilNotes,
-  cilPencil,
-  cilPuzzle,
+  //cilDrop,
+  // cilNotes,
+  //cilPencil,
+  //cilPuzzle,
   cilSpeedometer,
-  cilStar,
+  //cilStar,
+  cilMoney,
+  cilPool,
+  cilHouse,
+  cilUser,
+  cilPeople,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -26,7 +31,7 @@ const _nav = [
       text: 'NEW',
     },
   },
-  {
+  /*{
     component: CNavTitle,
     name: 'Theme',
   },
@@ -41,15 +46,15 @@ const _nav = [
     name: 'Typography',
     to: '/theme/typography',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
-  },
+  },*/
   {
     component: CNavTitle,
-    name: 'Components',
+    name: 'Features',
   },
   {
     component: CNavGroup,
     name: 'Billings',
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
@@ -77,7 +82,7 @@ const _nav = [
     component: CNavGroup,
     name: 'Requests',
     to: '/requests',
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
@@ -94,7 +99,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'Services',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilPool} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
@@ -117,7 +122,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'Units',
-    icon: <CIcon icon={cilBell} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilHouse} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
@@ -139,7 +144,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'User',
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
@@ -155,25 +160,8 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: 'Security',
-    icon: <CIcon icon={cilBell} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Security Guard List',
-        to: '/security/securityguardlist',
-      },
-      {
-        component: CNavItem,
-        name: 'Add Security Guard',
-        to: '/security/addsecurityguard',
-      },
-    ],
-  },
-  {
-    component: CNavGroup,
     name: 'Admin Management',
-    icon: <CIcon icon={cilBell} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
@@ -214,7 +202,7 @@ const _nav = [
       },
     ],
   },
-  {
+  /*{ // ForReference
     component: CNavItem,
     name: 'Widgets',
     to: '/widgets',
@@ -260,7 +248,7 @@ const _nav = [
     name: 'Docs',
     href: 'https://coreui.io/react/docs/templates/installation/',
     icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
-  },
+  },*/
 ]
 
 export default _nav
