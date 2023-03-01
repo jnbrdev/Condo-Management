@@ -50,7 +50,7 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 //Billings
 const WaterBillList = React.lazy(() => import('./views/billings/WaterBillList'))
-const AssociationDueList = React.lazy(() => import('./views/billings/AssociationDueList'))
+const AssocDueList = React.lazy(() => import('./views/billings/AssocDueList'))
 const ManageBilling = React.lazy(() => import('./views/billings/ManageBilling'))
 const AddBilling = React.lazy(() => import('./views/billings/AddBilling'))
 
@@ -132,10 +132,10 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
-  { path: '/billings/WaterBillList', name: 'Water Bill List', element: WaterBillList },
-  { path: '/billings/ManageBilling', name: 'Manage Billings', element: ManageBilling },
-  { path: '/billings/AssociationDueList', name: 'Association Due List', element: AssociationDueList },
-  { path: '/billings/AddBilling', name: 'Add Billing', element: AddBilling },
+  { path: '/billings/waterbilllist', name: 'Water Bill List', element: WaterBillList },
+  { path: '/billings/managebill', name: 'Manage Billings', element: ManageBilling },
+  { path: '/billings/associationduelist', name: 'Association Due List', element: AssocDueList },
+  { path: '/billings/addbilling', name: 'Add Billing', element: AddBilling },
 ]
 
 export default routes

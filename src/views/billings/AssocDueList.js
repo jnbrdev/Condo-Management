@@ -13,7 +13,7 @@ import {
 } from '@coreui/react'
 import { DocsExample } from 'src/components'
 
-const AssociationDueList = () => {
+const AssocDueList = () => {
   return (
     <CRow>
       <CToastBody>Association Due List</CToastBody>
@@ -21,4 +21,4 @@ const AssociationDueList = () => {
   )
 }
 
-export default AssociationDueList
+export default AssocDueList
