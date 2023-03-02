@@ -84,18 +84,15 @@
    position: relative;
 }
 
-// .input-group select {
-//     display: flex;
-//     height: 50px;
-//     border-radius: 5px;
-//     width: 290px;
-//     border-color: #B1B7C1;
-//     word-wrap: normal;
-//     margin: 0;
-//     font-family: inherit;
-//     font-size: inherit;
-//     line-height: inherit;
-//  } 
+.input-group p {
+   text-transform: uppercase;
+   font-family: sans-serif;
+//    padding-top: 10px;
+   padding-bottom: 0px;
+   font-size: 15px;
+   margin: 0%;
+   font-weight: bolder;
+ } 
 
 .create-acc {
     display: flex;
