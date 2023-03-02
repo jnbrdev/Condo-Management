@@ -55,7 +55,7 @@ const Login = () => {
                   <Link to="/register" className="registernow">
                     <CRow>
                       <CCol>
-                        <CButton color="none">Register Now!</CButton>
+                        <CButton color="none">Guest? Request here.</CButton>
                       </CCol>
                     </CRow>
                   </Link>

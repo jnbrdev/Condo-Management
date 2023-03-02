@@ -15,7 +15,16 @@ import {
   CRow,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
+import {
+  cilPenNib,
+  cilUser,
+  cilWc,
+  cilGlobeAlt,
+  cilAddressBook,
+  cilBirthdayCake,
+  cilLocationPin,
+  cilIndustry,
+} from '@coreui/icons'
 
 const Register = () => {
   return (
@@ -25,13 +34,13 @@ const Register = () => {
           <CCard className="registerform">
             <CCardBody>
               <CForm>
-                <h1>Create Account</h1>
-                <CCol className="text-divider"> Personal Information</CCol>
+                <h1>GUEST REQUEST FORM</h1>
+                <CCol className="text-divider">Personal Information</CCol>
                 <CRow className="row">
                   <CCol className="col-md-6">
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon={cilUser} />
+                        <CIcon icon={cilPenNib} />
                       </CInputGroupText>
                       <CFormInput placeholder="Firstname" autoComplete="firstname" />
                     </CInputGroup>
@@ -39,7 +48,7 @@ const Register = () => {
                   <CCol className="col-md-6">
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon={cilUser} />
+                        <CIcon icon={cilPenNib} />
                       </CInputGroupText>
                       <CFormInput placeholder="Lastname" autoComplete="lastname" />
                     </CInputGroup>
@@ -49,7 +58,7 @@ const Register = () => {
                   <CCol className="col-md-6">
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon={cilUser} />
+                        <CIcon icon={cilWc} />
                       </CInputGroupText>
                       <CFormSelect className="costum-select">
                         <option value="">Select Gender</option>
@@ -61,7 +70,7 @@ const Register = () => {
                   <CCol className="col-md-6">
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon={cilUser} />
+                        <CIcon icon={cilGlobeAlt} />
                       </CInputGroupText>
                       <CFormInput placeholder="Nationality" autoComplete="Nationality" />
                     </CInputGroup>
@@ -71,7 +80,7 @@ const Register = () => {
                   <CCol className="col-md-6">
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon={cilUser} />
+                        <CIcon icon={cilAddressBook} />
                       </CInputGroupText>
                       <CFormInput placeholder="Contact Number" autoComplete="contactNum" />
                     </CInputGroup>
@@ -79,14 +88,51 @@ const Register = () => {
                   <CCol className="col-md-6">
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
+                        <CIcon icon={cilBirthdayCake} />
+                      </CInputGroupText>
+                      <CFormInput type="date" />
+                    </CInputGroup>
+                  </CCol>
+                </CRow>
+                <CCol className="col-md-12">
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText>
+                      <CIcon icon={cilLocationPin} />
+                    </CInputGroupText>
+                    <CFormInput placeholder="Home Address" autoComplete="homeAddress" />
+                  </CInputGroup>
+                </CCol>
+                <CCol className="text-divider">Condo Unit Information</CCol>
+                <CRow className="row">
+                  <CCol className="col-md-6">
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon={cilIndustry} />
+                      </CInputGroupText>
+                      <CFormInput placeholder="Unit Number" autoComplete="unitNum" />
+                    </CInputGroup>
+                  </CCol>
+                  <CCol className="col-md-6">
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
                         <CIcon icon={cilUser} />
+                      </CInputGroupText>
+                      <CFormInput placeholder="Unit Owner" autoComplete="unitOwner" />
+                    </CInputGroup>
+                  </CCol>
+                </CRow>
+                <CRow className="row">
+                  <CCol className="col-md-12">
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <p className="dateVisit">Date of Visit</p>
                       </CInputGroupText>
                       <CFormInput type="date" />
                     </CInputGroup>
                   </CCol>
                 </CRow>
                 <CCol className="create-acc">
-                  <CButton color="primary">Create Account</CButton>
+                  <CButton color="primary">Request Visit</CButton>
                 </CCol>
               </CForm>
             </CCardBody>
