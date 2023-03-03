@@ -1,83 +1,57 @@
-import React from 'react'
-import { CRow, CToastBody, CButton, CContainer, CTable } from '@coreui/react'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 //import { DocsExample } from 'src/components'
-const columns = [
-  {
-    key: 'email',
-    label: 'Email',
-    _props: { scope: 'col' },
-  },
-  {
-    key: 'unit_no',
-    label: 'Unit #',
-    _props: { scope: 'col' },
-  },
-  {
-    key: 'fname',
-    label: 'First Name',
-    _props: { scope: 'col' },
-  },
-  {
-    key: 'lname',
-    label: 'Last Name',
-    _props: { scope: 'col' },
-  },
-  {
-    key: 'contact_no',
-    label: 'contact #',
-    _props: { scope: 'col' },
-  },
-  {
-    key: 'role',
-    label: 'Role',
-    _props: { scope: 'col' },
-  },
-  {
-    key: 'date_registered',
-    label: 'Date Registered',
-    _props: { scope: 'col' },
-  },
-  {
-    key: 'status',
-    label: 'Status',
-    _props: { scope: 'col' },
-  },
-  {
-    key: 'actions',
-    label: 'Actions',
-    _props: { scope: 'col' },
-  },
-]
-const items = [
-  {
-    email: 'test@email.com',
-    unit_no: '2453',
-    fname: 'Juan',
-    lname: 'Luna',
-    contact_no: '0909090909',
-    role: 'Owner',
-    date_registered: '02/15/2023',
-    status: 'Active',
-    actions: <CButton href="/billings/waterbilllist">Edit</CButton>,
-    _cellProps: { id: { scope: 'row' } },
-  },
-]
 
-const UserList = () => {
+function UserList() {
+  const [listOfUsers, setListOfUsers] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/users").then((response) => {
+      setListOfUsers(response.data);
+      console.log(response.data);
+    });
+  }, []);
   return (
-    <CContainer>
-      <CRow>
-        <CTable
-          bordered
-          className="user-list-table"
-          color="light"
-          columns={columns}
-          items={items}
-          tableHeadProps={{ color: 'dark' }}
-        />
-      </CRow>
-    </CContainer>
-  )
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="center">Email</TableCell>
+            <TableCell align="center">Unit #</TableCell>
+            <TableCell align="center">First Name</TableCell>
+            <TableCell align="center">Last Name</TableCell>
+            <TableCell align="center">Contact #</TableCell>
+            <TableCell align="center">Role</TableCell>
+            <TableCell align="center">Status</TableCell>
+            <TableCell align="center">Action</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {listOfUsers.map((value, index) => (
+            <TableRow key={index}>
+              <TableCell align="center">{value.email}</TableCell>
+              <TableCell align="center">{value.unit_no}</TableCell>
+              <TableCell align="center">{value.first_name}</TableCell>
+              <TableCell align="center">{value.last_name}</TableCell>
+              <TableCell align="center">{value.contact_no}</TableCell>
+              <TableCell align="center">{value.role}</TableCell>
+              <TableCell align="center">{value.status}</TableCell>
+              <TableCell align="center">
+                <button>Edit</button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 }
 
-export default UserList
+export default UserList;
