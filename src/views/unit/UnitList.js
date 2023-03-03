@@ -1,150 +1,76 @@
-import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { useState } from 'react'
-import { Button, Modal, Input } from 'react-bootstrap'
+import React from "react";
+//Bootstrap and jQuery libraries
+import "bootstrap/dist/css/bootstrap.min.css";
+import 'jquery/dist/jquery.min.js';
+//Datatable Modules
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import $ from 'jquery';
+//For API Requests
+import axios from 'axios';
 
-function UnitList() {
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
-  return (
-    <div className="container">
-      <div className="crud shadow-lg p-3 mb-5 mt-5 bg-body rounded">
-        <div className="row">
-          <div className="col-sm-3 mt-5 mb-4 text-gred">
-            <div className="search">
-              <form className="form-inline">
-                <input
-                  className="form-control mr-sm-2"
-                  type="search"
-                  placeholder="Search Student"
-                  aria-label="Search"
-                />
-              </form>
+class UnitList extends React.Component {
+    // State array variable to save and show data
+    constructor(props) {
+        super(props)
+        this.state = {
+            data: [],
+
+        }
+    }
+    componentDidMount() {
+        //Get all users details in bootstrap table
+        axios.get('http://localhost/save.php').then(res => {
+            //Storing users detail in state array object
+            this.setState({ data: res.data });
+
+        });
+        //initialize datatable
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('#example').DataTable();
+            }, 1000);
+        });
+    }
+    render() {
+        //Datatable HTML
+        return (
+            <div className="MainDiv">
+                <div class="jumbotron text-center">
+                    <h3>Unit List</h3>
+                </div>
+
+                <div className="container">
+
+                    <table id="example" class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>Username</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.data.map((result) => {
+                                return (
+                                    <tr>
+                                        <td>{result.id}</td>
+                                        <td>{result.email}</td>
+                                        <td>{result.username}</td>
+                                        <td>
+                                            <button className="bg-info" onClick={e => { this.userdetails(result.id) }}> <i class="fas fa-eye"></i> </button>
+                                            <button className="bg-warning"> <i class="fas fa-edit"></i> </button>
+                                            <button className="bg-danger"> <i class="fas fa-trash"></i> </button>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-          </div>
-          <div className="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{ color: 'green' }}>
-            <h2>Condo Unit List</h2>
-          </div>
-          <div className="col-sm-3 offset-sm-1  mt-5 mb-4 text-gred">
-            <Button variant="primary" onClick={handleShow}>
-              Add New Unit
-            </Button>
-          </div>
-        </div>
-        <div className="row">
-          <div className="table-responsive">
-            <table className="table table-striped table-hover table-bordered">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Unit # </th>
-                  <th>Unit Owner</th>
-                  <th>Unit Tower</th>
-                  <th>Unit Floor</th>
-                  <th>Unit Size</th>
-                  <th>Date Added</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>103</td>
-                  <td>Rual Octo</td>
-                  <td>Tower 1</td>
-                  <td>1st Floor</td>
-                  <td>20 sqm</td>
-                  <td>2023-04-02</td>
-                  <td>Vacant</td>
-                  <td>
-                    <a
-                      href="#"
-                      className="view"
-                      title="View"
-                      data-toggle="tooltip"
-                      style={{ color: '#10ab80' }}
-                    >
-                      <i className="material-icons">&#xE417;</i>
-                    </a>
-                    <a href="#" className="edit" title="Edit" data-toggle="tooltip">
-                      <i className="material-icons">&#xE254;</i>
-                    </a>
-                    <a
-                      href="#"
-                      className="delete"
-                      title="Delete"
-                      data-toggle="tooltip"
-                      style={{ color: 'red' }}
-                    >
-                      <i className="material-icons">&#xE872; </i>
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        {/* <!--- Model Box ---> */}
-        <div className="model_box">
-          <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
-            <Modal.Header closeButton>
-              <Modal.Title>Add Record</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <form>
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter Name"
-                  />
-                </div>
-                <div className="form-group mt-3">
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter Country"
-                  />
-                </div>
-                <div className="form-group mt-3">
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter City"
-                  />
-                </div>
-                <div className="form-group mt-3">
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="exampleInputPassword1"
-                    placeholder="Enter Country"
-                  />
-                </div>
-                <button type="submit" className="btn btn-success mt-4">
-                  Add Record
-                </button>
-              </form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal>
-          {/* Model Box Finsihs */}
-        </div>
-      </div>
-    </div>
-  )
+        );
+    }
 }
-
-export default UnitList
+export default UnitList;
