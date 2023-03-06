@@ -1,150 +1,260 @@
-import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { useState } from 'react'
-import { Button, Modal, Input } from 'react-bootstrap'
+import { useState, useEffect } from 'react';
+import $ from 'jquery';
+import 'datatables.net';
+import 'datatables.net-bs4';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal, Button, Form } from 'react-bootstrap';
 
-function UnitList() {
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
+const UnitList = () => {
+  const [data, setData] = useState([
+    { unitID: '1', unitNum: '104', unitOwner: 'John', unitTower: 'Tower 1', unitFloor: '1st Floor', unitSize: '10 sqm', dateAdded: '2023-05-01', status: 'Owner Occupied' },
+    { unitID: '2', unitNum: '253', unitOwner: 'Jane', unitTower: 'Tower 2', unitFloor: '2nd Floor', unitSize: '15 sqm', dateAdded: '2023-05-02', status: 'Tenant Occupied' },
+    { unitID: '3', unitNum: '303', unitOwner: 'Bob', unitTower: 'Tower 3', unitFloor: '3rd Floor', unitSize: '20 sqm', dateAdded: '2023-05-03', status: 'Vacant' },
+  ]);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showViewModal, setShowViewModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedData, setSelectedData] = useState({});
+  const [formData, setFormData] = useState({
+    unitNum: '',
+    unitOwner: '',
+    unitTower: '',
+    unitFloor: '',
+    unitSize: '',
+    dateAdded: '',
+    status: '',
+  });
+
+  useEffect(() => {
+    $('#example').DataTable();
+  }, []);
+
+  const handleInputChange = (event) => {
+    setFormData({ ...formData, [event.target.unitNum]: event.target.value });
+  };
+
+  const handleAddNewEntry = () => {
+    setShowAddModal(true);
+  };
+
+  const handleViewButtonClick = (data) => {
+    setSelectedData(data);
+    setShowViewModal(true);
+  };
+
+  const handleEditButtonClick = (data) => {
+    setSelectedData(data);
+    setFormData(data);
+    setShowEditModal(true);
+  };
+
+  const handleDeleteButtonClick = (data) => {
+    setSelectedData(data);
+    setShowDeleteModal(true);
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    const newId = data.length + 1;
+    const newData = { unitID: newId, ...formData };
+    setData([...data, newData]);
+    setFormData({ unitNum: '', unitOwner: '', unitTower: '', unitFloor: '', unitSize: '', dateAdded: '', status: '' });
+    setShowAddModal(false);
+  };
+
+  const handleUpdateSubmit = (event) => {
+    event.preventDefault();
+    const newData = data.map((item) =>
+      item.unitID === selectedData.unitID ? formData : item
+    );
+    setData(newData);
+    setFormData({ unitNum: '', unitOwner: '', unitTower: '', unitFloor: '', unitSize: '', dateAdded: '', status: '' });
+    setSelectedData({});
+    setShowEditModal(false);
+  };
+
+  const handleDeleteConfirm = () => {
+    const newData = data.filter((item) => item.unitID !== selectedData.unitID);
+    setData(newData);
+    setSelectedData({});
+    setShowDeleteModal(false);
+  };
+
   return (
-    <div className="container">
-      <div className="crud shadow-lg p-3 mb-5 mt-5 bg-body rounded">
-        <div className="row">
-          <div className="col-sm-3 mt-5 mb-4 text-gred">
-            <div className="search">
-              <form className="form-inline">
-                <input
-                  className="form-control mr-sm-2"
-                  type="search"
-                  placeholder="Search Student"
-                  aria-label="Search"
-                />
-              </form>
-            </div>
-          </div>
-          <div className="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{ color: 'green' }}>
-            <h2>Condo Unit List</h2>
-          </div>
-          <div className="col-sm-3 offset-sm-1  mt-5 mb-4 text-gred">
-            <Button variant="primary" onClick={handleShow}>
-              Add New Unit
-            </Button>
-          </div>
-        </div>
-        <div className="row">
-          <div className="table-responsive">
-            <table className="table table-striped table-hover table-bordered">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Unit # </th>
-                  <th>Unit Owner</th>
-                  <th>Unit Tower</th>
-                  <th>Unit Floor</th>
-                  <th>Unit Size</th>
-                  <th>Date Added</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>103</td>
-                  <td>Rual Octo</td>
-                  <td>Tower 1</td>
-                  <td>1st Floor</td>
-                  <td>20 sqm</td>
-                  <td>2023-04-02</td>
-                  <td>Vacant</td>
-                  <td>
-                    <a
-                      href="#"
-                      className="view"
-                      title="View"
-                      data-toggle="tooltip"
-                      style={{ color: '#10ab80' }}
-                    >
-                      <i className="material-icons">&#xE417;</i>
-                    </a>
-                    <a href="#" className="edit" title="Edit" data-toggle="tooltip">
-                      <i className="material-icons">&#xE254;</i>
-                    </a>
-                    <a
-                      href="#"
-                      className="delete"
-                      title="Delete"
-                      data-toggle="tooltip"
-                      style={{ color: 'red' }}
-                    >
-                      <i className="material-icons">&#xE872; </i>
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        {/* <!--- Model Box ---> */}
-        <div className="model_box">
-          <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
-            <Modal.Header closeButton>
-              <Modal.Title>Add Record</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <form>
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter Name"
-                  />
-                </div>
-                <div className="form-group mt-3">
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter Country"
-                  />
-                </div>
-                <div className="form-group mt-3">
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter City"
-                  />
-                </div>
-                <div className="form-group mt-3">
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="exampleInputPassword1"
-                    placeholder="Enter Country"
-                  />
-                </div>
-                <button type="submit" className="btn btn-success mt-4">
-                  Add Record
-                </button>
-              </form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal>
-          {/* Model Box Finsihs */}
-        </div>
-      </div>
-    </div>
-  )
-}
+    <div>
+      <Button variant="primary" onClick={handleAddNewEntry}>
+        Add New Entry
+      </Button>
 
-export default UnitList
+      <table id="example" className="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Unit #</th>
+            <th>Unit Owner</th>
+            <th>Unit Tower</th>
+            <th>Unit Floor</th>
+            <th>Unit Size</th>
+            <th>Date Added</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((entry) => (
+            <tr key={entry.unitID}>
+              <td>{entry.unitNum}</td>
+              <td>{entry.unitOwner}</td>
+              <td>{entry.unitTower}</td>
+              <td>{entry.unitFloor}</td>
+              <td>{entry.unitSize}</td>
+              <td>{entry.dateAdded}</td>
+              <td>{entry.status}</td>
+              <td>
+                <Button
+                  variant="info"
+                  onClick={() => handleViewButtonClick(entry)}
+                >
+                  View
+                </Button>
+                {' '}
+                <Button
+                  variant="warning"
+                  onClick={() => handleEditButtonClick(entry)}
+                >
+                  Edit
+                </Button>
+                {' '}
+                <Button
+                  variant="danger"
+                  onClick={() => handleDeleteButtonClick(entry)}
+                >
+                  Delete
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add New Entry</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleFormSubmit}>
+            <Form.Group controlId="formName">
+              <Form.Label>Unit Owner</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter name"
+                name="name"
+                value={formData.unitOwner}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="formAge">
+              <Form.Label>Unit Tower</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Enter age"
+                name="age"
+                value={formData.unitTower}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="formGender">
+              <Form.Label>Gender</Form.Label>
+              <Form.Control
+                as="select"
+                name="gender"
+                value={formData.gender}
+                onChange={handleInputChange}
+              >
+                <option>Male</option>
+                <option>Female</option>
+              </Form.Control>
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Save
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={showViewModal} onHide={() => setShowViewModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>View Entry</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p><strong>Name:</strong> {selectedData.unitOwner}</p>
+          <p><strong>Age:</strong> {selectedData.unitTower}</p>
+          <p><strong>Gender:</strong> {selectedData.unitFloor}</p>
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Entry</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleUpdateSubmit}>
+            <Form.Group controlId="formName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="formAge">
+              <Form.Label>Age</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Enter age"
+                name="age"
+                value={formData.age}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="formGender">
+              <Form.Label>Gender</Form.Label>
+              <Form.Control
+                as="select"
+                name="gender"
+                value={formData.gender}
+                onChange={handleInputChange}
+              >
+                <option>Male</option>
+                <option>Female</option>
+              </Form.Control>
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Save
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Entry</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Are you sure you want to delete this entry?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDeleteConfirm}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
+};
+
+export default UnitList;
